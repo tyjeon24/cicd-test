@@ -7,12 +7,12 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                checkout scm  // Pull code from Git repository
+                checkout scm
             }
         }
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'  // Install Python packages
+                sh 'pip install --no-cache-dir -r requirements.txt'
             }
         }
         stage('Run Tests') {
