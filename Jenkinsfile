@@ -1,33 +1,15 @@
+/* Requires the Docker Pipeline plugin */
 pipeline {
-    agent {
-        docker {
-            image 'python:3.10'
-            args '-e HOME=/root -v $HOME/.cache/pip:/root/.cache/pip'
-        }
-    }
+    agent { docker { image 'python:3.13.1-alpine3.21' } }
     stages {
-        stage('Checkout Code') {
+        stage('test') {
             steps {
-                checkout scm
+                echo 'Hello, Jenkins!'
             }
-        }
-        stage('Install Dependencies') {
+        stage('build') {
             steps {
-                sh 'pip install --no-cache-dir -r requirements.txt'
+                sh 'python --version'
             }
-        }
-        stage('Run Tests') {
-            steps {
-                sh 'pytest --junitxml=test-results.xml'  // Run tests with JUnit report
-            }
-        }
-    }
-    post {
-        always {
-            junit 'test-results.xml'  // Publish test results in Jenkins UI
-        }
-        failure {
-            echo "Tests failed! Check the test report."
         }
     }
 }
