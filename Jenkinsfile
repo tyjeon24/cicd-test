@@ -1,11 +1,9 @@
 pipeline {
-    agent {
-        docker { image 'node:22.13.1' }
-    }
+    agent { docker { image 'python:3.13.1-alpine3.21' } }
     stages {
-        stage('Test') {
+        stage('build') {
             steps {
-                sh 'node --eval "console.log(process.platform,process.env.CI)"'
+                sh 'python --version'
             }
         }
     }
