@@ -1,14 +1,18 @@
-/* Requires the Docker Pipeline plugin */
 pipeline {
-    agent { docker { image 'python:3.13.1-alpine3.21' } }
+    agent none 
     stages {
-        stage('test') {
+        stage('Example Build') {
+            agent { docker 'maven:3-alpine' }
             steps {
-                echo 'Hello, Jenkins!'
+                echo 'Hello, Maven'
+                sh 'mvn --version'
             }
-        stage('build') {
+        }
+        stage('Example Test') {
+            agent { docker 'openjdk:8-jre' }
             steps {
-                sh 'python --version'
+                echo 'Hello, JDK'
+                sh 'java -version'
             }
         }
     }
