@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python:3.10'
+            args '-e HOME=/root -v $HOME/.cache/pip:/root/.cache/pip'
         }
     }
     stages {
